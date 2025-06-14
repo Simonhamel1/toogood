@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Modifier la réservation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="reservation.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#00796b">
+</head>
+<body>
+  <div class="main-bg">
+    <div class="header-bar">
+      <button class="back-btn" aria-label="Retour" onclick="window.history.back()">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 22L10 14L18 6" stroke="#222" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <span class="header-title">Modifier la réservation</span>
+    </div>
+    <form id="edit-form" class="edit-form" action="reservation.html" method="get">
+      <label>Nom de l'entreprise :
+        <input type="text" name="nom" id="input-nom" value="Les Halles du Lavandier" required>
+      </label>
+      <label>Adresse :
+        <input type="text" name="adresse" id="input-adresse" value="81 Av. de la Marne, 56000 Vannes, France" required>
+      </label>
+      <label>Date :
+        <input type="date" name="date" id="input-date" value="2025-06-11" required>
+      </label>
+      <label>Heure de collecte :
+        <input type="text" name="heure" id="input-heure" value="16:00 - 18:30" required>
+      </label>
+      <label>Prix :
+        <input type="number" name="prix" id="input-prix" value="4.99" step="0.01" required> €
+      </label>
+      <button type="submit">Valider</button>
+    </form>
+  </div>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+  </script>
+</body>
+</html>

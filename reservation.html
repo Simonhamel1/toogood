@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Votre commande</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="stylesheet" href="reservation.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#f9f6f3">
+</head>
+<body>
+  <div class="header-bar">
+    <a class="back-btn" href="index.html" aria-label="Retour">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path d="M18 22L10 14L18 6" stroke="#222" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <span class="header-title">Votre commande</span>
+  </div>
+  <div class="main-bg">
+    <div class="container">
+      <div class="shop-card">
+        <img src="logo/starbucks-logo.png" alt="Logo Starbucks" class="shop-logo" style="width:54px;height:54px;">
+        <div class="shop-name">Starbucks - Cergy 3 fontaines</div>
+        <div class="shop-address">Rue De La Croix Des Maheux 95003, Av. des 3 Fontaines, 95000 Cergy, France</div>
+        <a href="#" class="find-shop">Trouver le commerce
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle; margin-left:2px;">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#00796b"/>
+          </svg>
+        </a>
+      </div>
+      <div class="reservation-section">
+        <div class="section-tabs">
+          <span class="section-title active">Je récupère<br>la commande</span>
+          <span class="section-title inactive">Demander à<br>un ami</span>
+        </div>
+        <div class="reservation-details">
+          <div>
+            <div class="details-label">DATE</div>
+            <div class="details-value">14 juin 2025</div>
+          </div>
+          <div>
+            <div class="details-label">HEURE DE COLLECTE</div>
+            <div class="details-value">12:00 - 19:30</div>
+          </div>
+        </div>
+        <div class="details-row">
+          <div>
+            <div class="details-label">PANIER SURPRISE</div>
+            <div class="details-value">1x Panier Surprise</div>
+          </div>
+          <div>
+            <div class="details-label">TOTAL</div>
+            <div class="details-value">3,99 €</div>
+          </div>
+        </div>
+        <div class="emballage">
+          <b>EMBALLAGE</b><br>
+          Le commerçant fournira l'emballage, mais nous vous encourageons à apporter votre propre sac pour ramener le panier chez vous.
+        </div>
+        <div class="emballage" style="margin-top:14px;">
+          <b>INFOS DE COLLECTE</b><br>
+          Starbucks en face de Zara, entrée côté rue piétonne
+        </div>
+        <hr class="separator-dots">
+        <button class="main-action-btn" id="open-popup-btn">Cliquer pour récupérer</button>
+        <div class="reminder">Recevoir un rappel <img src="3602145.png" width="20" height="20" style="vertical-align:middle;"></div>
+      </div>
+    </div>
+  </div>
+  <!-- Popup de validation -->
+  <div class="popup-overlay" id="popup-overlay">
+    <div class="popup-modal" id="popup-modal">
+      <div class="popup-header">
+        <h2 class="popup-title">Commande à récupérer</h2>
+        <button class="popup-close" id="close-popup-btn">&times;</button>
+      </div>
+      
+      <div class="popup-content">
+        <div class="popup-quantity-circle">1x</div>
+        
+        <div class="popup-item-name">Panier Surprise</div>
+        <div class="popup-item-location">Starbucks - Cergy 3 fontaines</div>
+        
+        <div class="popup-code-container">5E0QY7N4M07H0</div>
+        
+        <div class="popup-separator"></div>
+        
+        <div class="popup-instructions">
+          Validez ci-dessous et montrez l'écran au<br>commerçant. Assurez-vous de ne confirmer qu'une<br>fois que vous êtes chez le commerçant pour récupérer<br>votre panier.
+        </div>
+        
+        <div class="popup-validate-button" id="popup-slider">
+          <div class="validate-slider-track">
+            <span class="validate-text">Valider pour récupérer</span>
+            <div class="validate-slider-btn" id="slider-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Popup logic
+    const popupOverlay = document.getElementById('popup-overlay');
+    const popupModal = document.getElementById('popup-modal');
+    
+    document.getElementById('open-popup-btn').onclick = function() {
+      popupOverlay.classList.add('show');
+      popupOverlay.style.display = 'flex';
+      setTimeout(() => {
+        popupModal.style.transform = 'translateY(0)';
+        popupModal.style.opacity = '1';
+      }, 10);
+    };
+    document.getElementById('close-popup-btn').onclick = function() {
+      popupModal.style.transform = 'translateY(100%)';
+      popupModal.style.opacity = '0';
+      setTimeout(() => {
+        popupOverlay.classList.remove('show');
+        // Reset everything
+        sliderBtn.style.transform = 'translateX(0)';
+        sliderBtn.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        const sliderTrack = slider.querySelector('.validate-slider-track');
+        sliderTrack.style.background = 'white';
+        sliderTrack.style.borderColor = '#00796b';
+        popupOverlay.style.background = 'rgba(0, 0, 0, 0.5)';
+        const label = slider.querySelector('.validate-text');
+        if (label) {
+          label.textContent = 'Valider pour récupérer';
+          label.style.color = '#00796b';
+          label.style.opacity = '1';
+        }
+        // Reset popup content
+        const quantityCircle = document.querySelector('.popup-quantity-circle');
+        const itemName = document.querySelector('.popup-item-name');
+        if (quantityCircle && itemName) {
+          quantityCircle.innerHTML = '1x';
+          quantityCircle.style.background = '#00796b';
+          itemName.textContent = 'Panier Surprise';
+        }
+      }, 300);
+    };
+    // Slider logic avec les nouveaux sélecteurs
+    const sliderBtn = document.getElementById('slider-btn');
+    const slider = document.getElementById('popup-slider');
+    let isSliding = false, startX = 0, currentX = 0;
+    
+    const handleMove = (clientX) => {
+      if (!isSliding) return;
+      const sliderRect = slider.getBoundingClientRect();
+      const btnWidth = sliderBtn.offsetWidth;
+      const maxDistance = sliderRect.width - btnWidth - 8; // 8px padding total
+      
+      currentX = Math.max(0, Math.min(clientX - startX, maxDistance));
+      sliderBtn.style.transform = `translateX(${currentX}px)`;
+      
+      // Animation progressive du blanc vers le vert #00796b
+      const progress = currentX / maxDistance;
+      
+      // Interpolation de couleur du blanc vers #00796b (0, 121, 107)
+      const r = Math.floor(255 - (progress * 255)); // 255 -> 0
+      const g = Math.floor(255 - (progress * 134)); // 255 -> 121
+      const b = Math.floor(255 - (progress * 148)); // 255 -> 107
+      
+      const sliderTrack = slider.querySelector('.validate-slider-track');
+      sliderTrack.style.background = `rgb(${r}, ${g}, ${b})`;
+      sliderTrack.style.borderColor = '#00796b';
+      
+      // Change text and opacity based on progress with smooth transition
+      const label = slider.querySelector('.validate-text');
+      if (label) {
+        if (progress > 0.4) {
+          label.textContent = 'Panier confirmé';
+          label.style.color = 'white';
+        } else {
+          label.textContent = 'Valider pour récupérer';
+          label.style.color = '#00796b';
+        }
+        label.style.opacity = 1;
+      }
+    };
+    
+    const handleEnd = () => {
+      if (!isSliding) return;
+      isSliding = false;
+      
+      const sliderRect = slider.getBoundingClientRect();
+      const btnWidth = sliderBtn.offsetWidth;
+      const maxDistance = sliderRect.width - btnWidth - 8;
+      const threshold = maxDistance * 0.8; // 80% pour valider
+      
+      if (currentX > threshold) {
+        // Validation réussie
+        sliderBtn.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+        sliderBtn.style.transform = `translateX(${maxDistance}px)`;
+        
+        // Animation de succès
+        setTimeout(() => {
+          const sliderTrack = slider.querySelector('.validate-slider-track');
+          sliderTrack.style.background = '#00796b';
+          sliderTrack.style.borderColor = '#00796b';
+          const label = slider.querySelector('.validate-text');
+          if (label) {
+            label.textContent = 'Panier confirmé';
+            label.style.opacity = '1';
+            label.style.color = 'white';
+          }
+          
+          // Changer le contenu du popup pour afficher "Commande validée"
+          const quantityCircle = document.querySelector('.popup-quantity-circle');
+          const itemName = document.querySelector('.popup-item-name');
+          if (quantityCircle && itemName) {
+            quantityCircle.innerHTML = '✓';
+            quantityCircle.style.background = '#00796b';
+            itemName.textContent = 'Commande validée';
+          }
+          
+          // Supprimer l'arrière-plan après validation
+          setTimeout(() => {
+            popupOverlay.style.background = 'transparent';
+          }, 300);
+          
+          // Le popup reste ouvert - pas de fermeture automatique
+        }, 200);
+      } else {
+        // Retour à la position initiale avec transition fluide
+        sliderBtn.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+        sliderBtn.style.transform = 'translateX(0)';
+        const sliderTrack = slider.querySelector('.validate-slider-track');
+        sliderTrack.style.background = 'white';
+        sliderTrack.style.borderColor = '#00796b';
+        const label = slider.querySelector('.validate-text');
+        if (label) {
+          label.textContent = 'Valider pour récupérer';
+          label.style.color = '#00796b';
+          label.style.opacity = '1';
+        }
+      }
+    };
+    
+    // Touch events
+    sliderBtn.addEventListener('touchstart', function(e) {
+      isSliding = true;
+      const touch = e.touches[0];
+      startX = touch.clientX - currentX;
+      sliderBtn.style.transition = 'none';
+      e.preventDefault();
+    });
+    
+    document.addEventListener('touchmove', function(e) {
+      if (isSliding) {
+        e.preventDefault();
+        handleMove(e.touches[0].clientX);
+      }
+    });
+    
+    document.addEventListener('touchend', handleEnd);
+    
+    // Mouse events (desktop)
+    sliderBtn.addEventListener('mousedown', function(e) {
+      isSliding = true;
+      startX = e.clientX - currentX;
+      sliderBtn.style.transition = 'none';
+      e.preventDefault();
+    });
+    
+    document.addEventListener('mousemove', function(e) {
+      if (isSliding) {
+        e.preventDefault();
+        handleMove(e.clientX);
+      }
+    });
+    
+    document.addEventListener('mouseup', handleEnd);
+    
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+  </script>
+  <div class="help-section">
+    <div class="help-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.43 14.07 13 14.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z" fill="#8a8a8a"/>
+      </svg>
+    </div>
+    <div class="help-text">Besoin d'aide ?</div>
+  </div>
+</body>
+</html>
