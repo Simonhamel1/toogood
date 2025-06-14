@@ -2,42 +2,398 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Modifier la réservation</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administration - Configuration</title>  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="format-detection" content="telephone=no">
   <link rel="stylesheet" href="reservation.css">
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#00796b">
+  <meta name="theme-color" content="#00796b">  <style>
+    .admin-container {
+      max-width: 100%;
+      margin: 10px;
+      padding: 20px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .admin-title {
+      text-align: center;
+      color: #333;
+      margin-bottom: 25px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .form-section {
+      margin-bottom: 20px;
+    }
+
+    .form-section h3 {
+      color: #00796b;
+      margin-bottom: 12px;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 5px;
+      font-size: 16px;
+    }
+
+    .edit-form label {
+      display: block;
+      margin-bottom: 15px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .edit-form input, .edit-form textarea {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-top: 5px;      box-sizing: border-box;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .edit-form input:focus, .edit-form textarea:focus {
+      outline: none;
+      border-color: #00796b;
+    }
+
+    .logo-selector {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 15px 0;
+    }
+
+    .logo-option {
+      border: 3px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: #f9f9f9;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo-option:hover, .logo-option:active {
+      border-color: #00796b;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .logo-option.selected {
+      border-color: #00796b;
+      background: #e8f5e8;
+    }
+
+    .logo-option img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+
+    .logo-name {
+      font-size: 12px;
+      color: #333;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .collection-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 15px 0;
+      padding: 12px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .collection-toggle input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      accent-color: #00796b;
+    }
+
+    .collection-info {
+      margin-top: 15px;
+      display: none;
+      transition: all 0.3s ease;
+    }
+
+    .collection-info.show {
+      display: block;
+    }
+
+    .edit-form button[type="submit"] {
+      width: 100%;
+      background: linear-gradient(135deg, #00796b, #004d40);
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;      margin-top: 20px;
+      transition: all 0.3s ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .edit-form button[type="submit"]:hover, 
+    .edit-form button[type="submit"]:active {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 121, 107, 0.3);
+    }
+
+    .preview-section {
+      margin-top: 25px;
+      text-align: center;
+    }
+
+    .preview-btn {
+      background: linear-gradient(135deg, #00796b, #004d40);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;      transition: all 0.3s ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .preview-btn:hover, .preview-btn:active {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 121, 107, 0.3);
+    }
+
+    .success-message {
+      background: #d4edda;
+      color: #155724;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+      display: none;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* Styles spécifiques iPhone */
+    @media (max-width: 480px) {
+      .admin-container {
+        margin: 5px;
+        padding: 15px;
+        border-radius: 10px;
+      }
+
+      .admin-title {
+        font-size: 20px;
+        margin-bottom: 20px;
+      }
+
+      .logo-selector {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .logo-option {
+        min-height: 100px;
+        padding: 10px;
+      }
+
+      .logo-option img {
+        width: 50px;
+        height: 50px;
+      }
+
+      .edit-form input, .edit-form textarea {
+        padding: 14px;
+        font-size: 16px;
+      }
+
+      .form-section h3 {
+        font-size: 15px;
+      }
+    }
+
+    /* Fix pour Safari iOS */
+    @supports (-webkit-touch-callout: none) {      .edit-form input {
+        border-radius: 0;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="main-bg">
-    <div class="header-bar">
-      <button class="back-btn" aria-label="Retour" onclick="window.history.back()">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M18 22L10 14L18 6" stroke="#222" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-      <span class="header-title">Modifier la réservation</span>
+    <div class="admin-container">
+      <h1 class="admin-title">🛠️ Administration du Site</h1>
+      
+      <div class="success-message" id="successMessage">
+        Configuration sauvegardée avec succès !
+      </div>
+
+      <form id="admin-form" class="edit-form">
+        <div class="form-section">
+          <h3>📋 Informations générales</h3>
+          <label>Nom de l'entreprise :
+            <input type="text" name="nom" id="input-nom" required>
+          </label>
+          <label>Adresse :
+            <input type="text" name="adresse" id="input-adresse" required>
+          </label>
+          <label>Date :
+            <input type="date" name="date" id="input-date" required>
+          </label>
+          <label>Heure de collecte :
+            <input type="text" name="heure" id="input-heure" placeholder="16:00 - 18:30" required>
+          </label>
+          <label>Prix :
+            <input type="number" name="prix" id="input-prix" step="0.01" required> €
+          </label>
+        </div>
+
+        <div class="form-section">
+          <h3>🖼️ Choix du logo</h3>
+          <div class="logo-selector" id="logoSelector">
+            <!-- Les logos seront chargés dynamiquement -->
+          </div>
+          <input type="hidden" name="logo" id="selectedLogo">
+        </div>
+
+        <div class="form-section">
+          <h3>ℹ️ Informations de collecte</h3>
+          <div class="collection-toggle">
+            <input type="checkbox" name="hasCollectionInfo" id="hasCollectionInfo">
+            <label for="hasCollectionInfo">Afficher des informations de collecte</label>
+          </div>
+          <div class="collection-info" id="collectionInfoSection">
+            <label>Informations de collecte :
+              <textarea name="collectionInfo" id="collectionInfo" rows="3" placeholder="Ex: Récupération sur place uniquement"></textarea>
+            </label>
+          </div>
+        </div>
+
+        <button type="submit">💾 Sauvegarder la configuration</button>
+      </form>
+
+      <div class="preview-section">
+        <h3>👀 Aperçu</h3>
+        <a href="reservation.html" class="preview-btn">Voir la page de réservation</a>
+      </div>
     </div>
-    <form id="edit-form" class="edit-form" action="reservation.html" method="get">
-      <label>Nom de l'entreprise :
-        <input type="text" name="nom" id="input-nom" value="Les Halles du Lavandier" required>
-      </label>
-      <label>Adresse :
-        <input type="text" name="adresse" id="input-adresse" value="81 Av. de la Marne, 56000 Vannes, France" required>
-      </label>
-      <label>Date :
-        <input type="date" name="date" id="input-date" value="2025-06-11" required>
-      </label>
-      <label>Heure de collecte :
-        <input type="text" name="heure" id="input-heure" value="16:00 - 18:30" required>
-      </label>
-      <label>Prix :
-        <input type="number" name="prix" id="input-prix" value="4.99" step="0.01" required> €
-      </label>
-      <button type="submit">Valider</button>
-    </form>
   </div>
+
+  <script src="config.js"></script>
   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      loadLogos();
+      loadCurrentConfig();
+      setupEventListeners();
+    });
+
+    function loadLogos() {
+      const logoSelector = document.getElementById('logoSelector');
+      const logos = window.siteConfig.getAvailableLogos();
+      
+      logoSelector.innerHTML = '';
+      logos.forEach(logo => {
+        const logoDiv = document.createElement('div');
+        logoDiv.className = 'logo-option';
+        logoDiv.dataset.logo = logo.path;
+        logoDiv.innerHTML = `
+          <img src="${logo.path}" alt="${logo.name}" onerror="this.style.display='none'">
+          <div class="logo-name">${logo.name}</div>
+        `;
+        logoDiv.addEventListener('click', function() {
+          selectLogo(logo.path);
+        });
+        logoSelector.appendChild(logoDiv);
+      });
+    }
+
+    function selectLogo(logoPath) {
+      document.querySelectorAll('.logo-option').forEach(option => {
+        option.classList.remove('selected');
+      });
+      document.querySelector(`[data-logo="${logoPath}"]`).classList.add('selected');
+      document.getElementById('selectedLogo').value = logoPath;
+    }
+
+    function loadCurrentConfig() {
+      const config = window.siteConfig.getAll();
+      
+      document.getElementById('input-nom').value = config.nom || '';
+      document.getElementById('input-adresse').value = config.adresse || '';
+      document.getElementById('input-date').value = config.date || '';
+      document.getElementById('input-heure').value = config.heure || '';
+      document.getElementById('input-prix').value = config.prix || '';
+      document.getElementById('hasCollectionInfo').checked = config.hasCollectionInfo || false;
+      document.getElementById('collectionInfo').value = config.collectionInfo || '';
+      
+      if (config.logo) {
+        selectLogo(config.logo);
+      }
+      
+      toggleCollectionInfo();
+    }
+
+    function setupEventListeners() {
+      document.getElementById('hasCollectionInfo').addEventListener('change', toggleCollectionInfo);
+      document.getElementById('admin-form').addEventListener('submit', saveConfig);
+    }
+
+    function toggleCollectionInfo() {
+      const checkbox = document.getElementById('hasCollectionInfo');
+      const section = document.getElementById('collectionInfoSection');
+      
+      if (checkbox.checked) {
+        section.classList.add('show');
+      } else {
+        section.classList.remove('show');
+      }
+    }
+
+    function saveConfig(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(e.target);
+      const config = {
+        nom: formData.get('nom'),
+        adresse: formData.get('adresse'),
+        date: formData.get('date'),
+        heure: formData.get('heure'),
+        prix: formData.get('prix'),
+        logo: formData.get('logo'),
+        hasCollectionInfo: formData.get('hasCollectionInfo') === 'on',
+        collectionInfo: formData.get('collectionInfo') || ''
+      };
+      
+      window.siteConfig.setAll(config);
+      
+      // Afficher le message de succès
+      const successMessage = document.getElementById('successMessage');
+      successMessage.style.display = 'block';
+      setTimeout(() => {
+        successMessage.style.display = 'none';
+      }, 3000);
+    }
+
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js');
     }

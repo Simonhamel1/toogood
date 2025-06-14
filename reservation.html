@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="reservation.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#f9f6f3">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="format-detection" content="telephone=no">
 </head>
 <body>
   <div class="header-bar">
@@ -20,9 +23,9 @@
   <div class="main-bg">
     <div class="container">
       <div class="shop-card">
-        <img src="logo/starbucks-logo.png" alt="Logo Starbucks" class="shop-logo" style="width:54px;height:54px;">
-        <div class="shop-name">Starbucks - Cergy 3 fontaines</div>
-        <div class="shop-address">Rue De La Croix Des Maheux 95003, Av. des 3 Fontaines, 95000 Cergy, France</div>
+        <img id="shopLogo" src="logo/starbucks-logo.png" alt="Logo" class="shop-logo" style="width:54px;height:54px;">
+        <div id="shopName" class="shop-name">Nom de l'entreprise</div>
+        <div id="shopAddress" class="shop-address">Adresse de l'entreprise</div>
         <a href="#" class="find-shop">Trouver le commerce
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle; margin-left:2px;">
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#00796b"/>
@@ -37,11 +40,11 @@
         <div class="reservation-details">
           <div>
             <div class="details-label">DATE</div>
-            <div class="details-value">14 juin 2025</div>
+            <div id="eventDate" class="details-value">Date</div>
           </div>
           <div>
             <div class="details-label">HEURE DE COLLECTE</div>
-            <div class="details-value">12:00 - 19:30</div>
+            <div id="eventTime" class="details-value">Heure</div>
           </div>
         </div>
         <div class="details-row">
@@ -51,18 +54,17 @@
           </div>
           <div>
             <div class="details-label">TOTAL</div>
-            <div class="details-value">3,99 €</div>
+            <div id="eventPrice" class="details-value">Prix €</div>
           </div>
         </div>
         <div class="emballage">
           <b>EMBALLAGE</b><br>
           Le commerçant fournira l'emballage, mais nous vous encourageons à apporter votre propre sac pour ramener le panier chez vous.
         </div>
-        <div class="emballage" style="margin-top:14px;">
+        <div id="collectionInfoSection" class="emballage" style="margin-top:14px;">
           <b>INFOS DE COLLECTE</b><br>
-          Starbucks en face de Zara, entrée côté rue piétonne
-        </div>
-        <hr class="separator-dots">
+          <span id="collectionInfoText">Informations de collecte</span>
+        </div>        <hr class="separator-dots">
         <button class="main-action-btn" id="open-popup-btn">Cliquer pour récupérer</button>
         <div class="reminder">Recevoir un rappel <img src="3602145.png" width="20" height="20" style="vertical-align:middle;"></div>
       </div>
@@ -392,8 +394,77 @@
     
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js');
+    }  </script>
+  
+  <!-- Script de chargement dynamique des données -->
+  <script src="config.js"></script>
+  <script>
+    // Fonction pour formater la date en français
+    function formatDateFrench(dateString) {
+      const date = new Date(dateString);
+      const options = { 
+        day: 'numeric', 
+        month: 'long', 
+        year: 'numeric' 
+      };
+      return date.toLocaleDateString('fr-FR', options);
     }
+
+    // Charger et appliquer la configuration
+    document.addEventListener('DOMContentLoaded', function() {
+      const config = window.siteConfig.getAll();
+      
+      // Mettre à jour le logo
+      if (config.logo) {
+        document.getElementById('shopLogo').src = config.logo;
+        document.getElementById('shopLogo').alt = config.nom || 'Logo';
+      }
+      
+      // Mettre à jour le nom de l'entreprise
+      if (config.nom) {
+        document.getElementById('shopName').textContent = config.nom;
+      }
+      
+      // Mettre à jour l'adresse
+      if (config.adresse) {
+        document.getElementById('shopAddress').textContent = config.adresse;
+      }
+      
+      // Mettre à jour la date (formatée en français)
+      if (config.date) {
+        document.getElementById('eventDate').textContent = formatDateFrench(config.date);
+      }
+      
+      // Mettre à jour l'heure
+      if (config.heure) {
+        document.getElementById('eventTime').textContent = config.heure;
+      }
+      
+      // Mettre à jour le prix
+      if (config.prix) {
+        document.getElementById('eventPrice').textContent = config.prix + ' €';
+      }
+        // Gérer l'affichage des informations de collecte
+      const collectionSection = document.getElementById('collectionInfoSection');
+      const collectionText = document.getElementById('collectionInfoText');
+      
+      // Toujours afficher la section (comme dans l'original)
+      collectionSection.style.display = 'block';
+      
+      if (config.hasCollectionInfo && config.collectionInfo) {
+        collectionText.textContent = config.collectionInfo;
+      } else {
+        // Texte par défaut si aucune info de collecte n'est configurée
+        collectionText.textContent = "Informations de collecte disponibles sur place";
+      }
+      
+      // Mettre à jour le titre de la page
+      if (config.nom) {
+        document.title = `Commande - ${config.nom}`;
+      }
+    });
   </script>
+  
   <div class="help-section">
     <div class="help-icon">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
