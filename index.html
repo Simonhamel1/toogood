@@ -24,18 +24,31 @@
       margin-bottom: 25px;
       font-size: 22px;
       font-weight: bold;
+    }    .form-section {
+      margin-bottom: 25px;
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      border: 1px solid #f0f0f0;
+      transition: all 0.3s ease;
     }
 
-    .form-section {
-      margin-bottom: 20px;
+    .form-section:hover {
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      border-color: #e0e0e0;
     }
 
     .form-section h3 {
       color: #00796b;
-      margin-bottom: 12px;
-      border-bottom: 2px solid #e0e0e0;
-      padding-bottom: 5px;
-      font-size: 16px;
+      margin-bottom: 18px;
+      border-bottom: 2px solid #e8f5e8;
+      padding-bottom: 8px;
+      font-size: 17px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .edit-form label {
@@ -107,53 +120,179 @@
       color: #333;
       font-weight: 500;
       text-align: center;
-    }
-
-    .collection-toggle {
+    }    .collection-toggle {
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: space-between;
       margin: 15px 0;
-      padding: 12px;
-      background: #f8f9fa;
-      border-radius: 8px;
+      padding: 18px;
+      background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+      border-radius: 15px;
+      border: 2px solid #e0e0e0;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .collection-toggle:hover {
+      border-color: #00796b;
+      background: linear-gradient(135deg, #f0f8ff 0%, #e8f5e8 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 121, 107, 0.15);
+    }
+
+    .collection-toggle:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 6px rgba(0, 121, 107, 0.2);
+    }
+
+    .collection-toggle-label {
+      font-weight: 600;
+      color: #2c3e50;
+      flex: 1;
+      font-size: 16px;
+      letter-spacing: 0.3px;
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 64px;
+      height: 32px;
+      background: linear-gradient(135deg, #bdc3c7 0%, #95a5a6 100%);
+      border-radius: 32px;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      cursor: pointer;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .toggle-switch.active {
+      background: linear-gradient(135deg, #00796b 0%, #004d40 100%);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 8px rgba(0, 121, 107, 0.3);
+    }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      top: 2px;
+      left: 2px;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .toggle-switch.active::after {
+      transform: translateX(32px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.15);
     }
 
     .collection-toggle input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
-      accent-color: #00796b;
+      display: none;
+    }    .toggle-status {
+      font-size: 13px;
+      color: #7f8c8d;
+      margin-left: 12px;
+      min-width: 65px;
+      text-align: right;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+    }
+
+    .toggle-status.active {
+      color: #00796b;
+      text-shadow: 0 1px 2px rgba(0, 121, 107, 0.2);
     }
 
     .collection-info {
-      margin-top: 15px;
+      margin-top: 20px;
       display: none;
-      transition: all 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      opacity: 0;
+      transform: translateY(-10px);
     }
 
     .collection-info.show {
       display: block;
+      opacity: 1;
+      transform: translateY(0);
+      animation: slideInFade 0.4s ease-out;
     }
 
-    .edit-form button[type="submit"] {
+    @keyframes slideInFade {
+      from {
+        opacity: 0;
+        transform: translateY(-15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .collection-info label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #2c3e50;
+      font-size: 15px;
+    }
+
+    .collection-info textarea {
       width: 100%;
-      background: linear-gradient(135deg, #00796b, #004d40);
+      min-height: 80px;
+      padding: 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-size: 14px;
+      font-family: inherit;
+      line-height: 1.5;
+      resize: vertical;
+      transition: all 0.3s ease;
+      background: #fafbfc;
+    }
+
+    .collection-info textarea:focus {
+      outline: none;
+      border-color: #00796b;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(0, 121, 107, 0.1);
+    }    .collection-info textarea::placeholder {
+      color: #95a5a6;
+      font-style: italic;
+    }    .edit-form button[type="submit"] {
+      width: 100%;
+      background: linear-gradient(135deg, #00796b 0%, #004d40 100%);
       color: white;
       border: none;
-      padding: 15px;
-      border-radius: 10px;
+      padding: 18px;
+      border-radius: 12px;
       font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;      margin-top: 20px;
-      transition: all 0.3s ease;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 25px;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       -webkit-appearance: none;
       appearance: none;
+      box-shadow: 0 4px 15px rgba(0, 121, 107, 0.2);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .edit-form button[type="submit"]:hover, 
     .edit-form button[type="submit"]:active {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 121, 107, 0.3);
+      box-shadow: 0 8px 25px rgba(0, 121, 107, 0.35);
+      background: linear-gradient(135deg, #009688 0%, #00695c 100%);
+    }
+
+    .edit-form button[type="submit"]:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 15px rgba(0, 121, 107, 0.4);
     }
 
     .preview-section {
@@ -179,20 +318,30 @@
     .preview-btn:hover, .preview-btn:active {
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(0, 121, 107, 0.3);
-    }
-
-    .success-message {
-      background: #d4edda;
+    }    .success-message {
+      background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
       color: #155724;
-      padding: 15px;
-      border-radius: 8px;
-      margin: 15px 0;
+      padding: 18px;
+      border-radius: 12px;
+      margin: 20px 0;
       display: none;
       text-align: center;
-      font-weight: 500;
+      font-weight: 600;
+      border: 2px solid #b8dabd;
+      box-shadow: 0 4px 12px rgba(21, 87, 36, 0.1);
+      animation: successSlideIn 0.4s ease-out;
     }
 
-    /* Styles spécifiques iPhone */
+    @keyframes successSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }/* Styles spécifiques iPhone */
     @media (max-width: 480px) {
       .admin-container {
         margin: 5px;
@@ -227,6 +376,45 @@
 
       .form-section h3 {
         font-size: 15px;
+      }      .collection-toggle {
+        flex-direction: column;
+        gap: 18px;
+        text-align: center;
+        padding: 20px 15px;
+      }
+
+      .collection-toggle-label {
+        font-size: 15px;
+        order: 1;
+      }
+
+      .toggle-switch {
+        align-self: center;
+        order: 2;
+        width: 58px;
+        height: 30px;
+      }
+
+      .toggle-switch::after {
+        width: 26px;
+        height: 26px;
+      }
+
+      .toggle-switch.active::after {
+        transform: translateX(28px);
+      }
+
+      .toggle-status {
+        margin-left: 0;
+        text-align: center;
+        min-width: auto;
+        order: 3;
+        font-size: 12px;
+      }
+
+      .collection-info textarea {
+        min-height: 70px;
+        font-size: 16px; /* Éviter le zoom sur iOS */
       }
     }
 
@@ -274,17 +462,17 @@
             <!-- Les logos seront chargés dynamiquement -->
           </div>
           <input type="hidden" name="logo" id="selectedLogo">
-        </div>
-
-        <div class="form-section">
+        </div>        <div class="form-section">
           <h3>ℹ️ Informations de collecte</h3>
-          <div class="collection-toggle">
+          <div class="collection-toggle" id="collectionToggle">
+            <div class="collection-toggle-label">Afficher des informations de collecte</div>
+            <div class="toggle-switch" id="toggleSwitch"></div>
+            <div class="toggle-status" id="toggleStatus">Désactivé</div>
             <input type="checkbox" name="hasCollectionInfo" id="hasCollectionInfo">
-            <label for="hasCollectionInfo">Afficher des informations de collecte</label>
           </div>
           <div class="collection-info" id="collectionInfoSection">
             <label>Informations de collecte :
-              <textarea name="collectionInfo" id="collectionInfo" rows="3" placeholder="Ex: Récupération sur place uniquement"></textarea>
+              <textarea name="collectionInfo" id="collectionInfo" rows="3" placeholder="Ex: Récupération sur place uniquement, Apporter vos propres contenants"></textarea>
             </label>
           </div>
         </div>
@@ -333,9 +521,7 @@
       });
       document.querySelector(`[data-logo="${logoPath}"]`).classList.add('selected');
       document.getElementById('selectedLogo').value = logoPath;
-    }
-
-    function loadCurrentConfig() {
+    }    function loadCurrentConfig() {
       const config = window.siteConfig.getAll();
       
       document.getElementById('input-nom').value = config.nom || '';
@@ -343,18 +529,55 @@
       document.getElementById('input-date').value = config.date || '';
       document.getElementById('input-heure').value = config.heure || '';
       document.getElementById('input-prix').value = config.prix || '';
-      document.getElementById('hasCollectionInfo').checked = config.hasCollectionInfo || false;
+      
+      const hasCollectionInfo = config.hasCollectionInfo || false;
+      document.getElementById('hasCollectionInfo').checked = hasCollectionInfo;
       document.getElementById('collectionInfo').value = config.collectionInfo || '';
+      
+      // Initialiser l'état du toggle
+      const toggleSwitch = document.getElementById('toggleSwitch');
+      const toggleStatus = document.getElementById('toggleStatus');
+      
+      if (hasCollectionInfo) {
+        toggleSwitch.classList.add('active');
+        toggleStatus.textContent = 'Activé';
+        toggleStatus.classList.add('active');
+      } else {
+        toggleSwitch.classList.remove('active');
+        toggleStatus.textContent = 'Désactivé';
+        toggleStatus.classList.remove('active');
+      }
       
       if (config.logo) {
         selectLogo(config.logo);
       }
       
       toggleCollectionInfo();
-    }
+    }function setupEventListeners() {
+      // Gestion du toggle des informations de collecte
+      const collectionToggle = document.getElementById('collectionToggle');
+      const toggleSwitch = document.getElementById('toggleSwitch');
+      const toggleStatus = document.getElementById('toggleStatus');
+      const checkbox = document.getElementById('hasCollectionInfo');
 
-    function setupEventListeners() {
-      document.getElementById('hasCollectionInfo').addEventListener('change', toggleCollectionInfo);
+      collectionToggle.addEventListener('click', function() {
+        const isChecked = !checkbox.checked;
+        checkbox.checked = isChecked;
+        
+        // Mettre à jour l'apparence du toggle
+        if (isChecked) {
+          toggleSwitch.classList.add('active');
+          toggleStatus.textContent = 'Activé';
+          toggleStatus.classList.add('active');
+        } else {
+          toggleSwitch.classList.remove('active');
+          toggleStatus.textContent = 'Désactivé';
+          toggleStatus.classList.remove('active');
+        }
+        
+        toggleCollectionInfo();
+      });
+
       document.getElementById('admin-form').addEventListener('submit', saveConfig);
     }
 
