@@ -87,15 +87,15 @@
         <div class="popup-separator"></div>
         
         <div class="popup-instructions">
-          Validez ci-dessous et montrez l'écran au<br>commerçant. Assurez-vous de ne confirmer qu'une<br>fois que vous êtes chez le commerçant pour récupérer<br>votre panier.
+          Validez ci-dessous et montrez l'écran au<br>commerçant. Assurez-vous de ne confirmer qu'une<br>fois que vous êtes chez le commerçant pour<br>récupérervotre panier.
         </div>
         
         <div class="popup-validate-button" id="popup-slider">
           <div class="validate-slider-track">
             <span class="validate-text">Valider pour récupérer</span>
             <div class="validate-slider-btn" id="slider-btn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 16.59L12.58 12 8 7.41 10 6l6 6-6 6-2-1.41z"/>
               </svg>
             </div>
           </div>
@@ -191,8 +191,8 @@
       const sliderRect = slider.getBoundingClientRect();
       const btnWidth = sliderBtn.offsetWidth;
       const maxDistance = sliderRect.width - btnWidth - 8;
-      const threshold = maxDistance * 0.8; // 80% pour valider
-      
+      const threshold = maxDistance * 0.6; // 60% pour valider
+
       if (currentX > threshold) {
         // Validation réussie
         sliderBtn.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
@@ -205,23 +205,14 @@
           sliderTrack.style.borderColor = '#00796b';
           const label = slider.querySelector('.validate-text');
           if (label) {
-            label.textContent = 'Panier confirmé';
-            label.style.opacity = '1';
-            label.style.color = 'white';
+        label.textContent = 'Panier confirmé';
+        label.style.opacity = '1';
+        label.style.color = 'white';
           }
           
-          // Changer le contenu du popup pour afficher "Commande validée"
-          const quantityCircle = document.querySelector('.popup-quantity-circle');
-          const itemName = document.querySelector('.popup-item-name');
-          if (quantityCircle && itemName) {
-            quantityCircle.innerHTML = '✓';
-            quantityCircle.style.background = '#00796b';
-            itemName.textContent = 'Commande validée';
-          }
-          
-          // Supprimer l'arrière-plan après validation
+          // Change only the background, but keep the top part unchanged
           setTimeout(() => {
-            popupOverlay.style.background = 'transparent';
+        popupOverlay.style.background = 'transparent';
           }, 300);
           
           // Le popup reste ouvert - pas de fermeture automatique
