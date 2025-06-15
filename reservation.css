@@ -61,6 +61,7 @@ body {
   width: 44px;
   height: 44px;
   margin-bottom: 6px;
+  border-radius: 50%;
 }
 .shop-name {
   font-weight: 600;

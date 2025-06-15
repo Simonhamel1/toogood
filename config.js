@@ -1,6 +1,7 @@
 // Configuration dynamique du site
 class SiteConfig {
-    constructor() {        this.config = {
+    constructor() {        
+        this.config = {
             nom: "Les Halles du Lavandier",
             adresse: "81 Av. de la Marne, 56000 Vannes, France",
             date: "2025-06-11",
@@ -60,6 +61,11 @@ class SiteConfig {
                 path: "logo/les-halles-du-lavandiers.jpeg", 
                 name: "Les Halles du Lavandier",
                 filename: "les-halles-du-lavandiers.jpeg"
+            },
+            {
+                path: "logo/la-croissanterie.jpg",
+                name: "La Croissanterie",
+                filename: "la-croissanterie.jpg"
             }
         ];
     }
