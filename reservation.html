@@ -430,12 +430,9 @@
       if (config.adresse) {
         document.getElementById('shopAddress').textContent = config.adresse;
       }
-      
-      // Mettre à jour les informations du popup
+        // Mettre à jour les informations du popup (nom seulement)
       const popupLocation = document.getElementById('popupItemLocation');
-      if (popupLocation && config.nom && config.adresse) {
-        popupLocation.textContent = `${config.nom} - ${config.adresse}`;
-      } else if (popupLocation && config.nom) {
+      if (popupLocation && config.nom) {
         popupLocation.textContent = config.nom;
       }
       

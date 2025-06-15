@@ -600,9 +600,8 @@
         prix: formData.get('prix'),
         logo: formData.get('logo'),
         hasCollectionInfo: formData.get('hasCollectionInfo') === 'on',
-        collectionInfo: formData.get('collectionInfo') || '',
-        // Informations supplémentaires pour le popup
-        popupLocation: `${formData.get('nom')} - ${formData.get('adresse')}`,
+        collectionInfo: formData.get('collectionInfo') || '',        // Informations supplémentaires pour le popup
+        popupLocation: formData.get('nom'), // Seulement le nom pour le popup
         popupTitle: formData.get('nom') || 'Commerce',
         lastUpdated: new Date().toISOString()
       };
