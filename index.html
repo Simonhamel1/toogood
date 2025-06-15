@@ -438,12 +438,10 @@
 
       <form id="admin-form" class="edit-form">
         <div class="form-section">
-          <h3>📋 Informations générales</h3>
-          <label>Nom de l'entreprise :
-            <input type="text" name="nom" id="input-nom" required>
-          </label>
-          <label>Adresse :
-            <input type="text" name="adresse" id="input-adresse" required>
+          <h3>📋 Informations générales</h3>          <label>Nom de l'entreprise :
+            <input type="text" name="nom" id="input-nom" required placeholder="Ex: Les Halles du Lavandier">
+          </label>          <label>Adresse :
+            <input type="text" name="adresse" id="input-adresse" required placeholder="Ex: 123 Rue de la Paix, 75001 Paris">
           </label>
           <label>Date :
             <input type="date" name="date" id="input-date" required>
@@ -590,9 +588,7 @@
       } else {
         section.classList.remove('show');
       }
-    }
-
-    function saveConfig(e) {
+    }    function saveConfig(e) {
       e.preventDefault();
       
       const formData = new FormData(e.target);
@@ -604,7 +600,11 @@
         prix: formData.get('prix'),
         logo: formData.get('logo'),
         hasCollectionInfo: formData.get('hasCollectionInfo') === 'on',
-        collectionInfo: formData.get('collectionInfo') || ''
+        collectionInfo: formData.get('collectionInfo') || '',
+        // Informations supplémentaires pour le popup
+        popupLocation: `${formData.get('nom')} - ${formData.get('adresse')}`,
+        popupTitle: formData.get('nom') || 'Commerce',
+        lastUpdated: new Date().toISOString()
       };
       
       window.siteConfig.setAll(config);

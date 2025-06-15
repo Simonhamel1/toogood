@@ -80,9 +80,8 @@
       
       <div class="popup-content">
         <div class="popup-quantity-circle">1x</div>
-        
-        <div class="popup-item-name">Panier Surprise</div>
-        <div class="popup-item-location">Starbucks - Cergy 3 fontaines</div>
+          <div class="popup-item-name">Panier Surprise</div>
+        <div class="popup-item-location" id="popupItemLocation">Starbucks - Cergy 3 fontaines</div>
         
         <div class="popup-code-container">5E0QY7N4M07H0</div>
         
@@ -419,15 +418,25 @@
         document.getElementById('shopLogo').src = config.logo;
         document.getElementById('shopLogo').alt = config.nom || 'Logo';
       }
-      
-      // Mettre à jour le nom de l'entreprise
+        // Mettre à jour le nom de l'entreprise
       if (config.nom) {
         document.getElementById('shopName').textContent = config.nom;
+        
+        // Mettre à jour aussi le titre de la page
+        document.title = `Commande - ${config.nom}`;
       }
       
       // Mettre à jour l'adresse
       if (config.adresse) {
         document.getElementById('shopAddress').textContent = config.adresse;
+      }
+      
+      // Mettre à jour les informations du popup
+      const popupLocation = document.getElementById('popupItemLocation');
+      if (popupLocation && config.nom && config.adresse) {
+        popupLocation.textContent = `${config.nom} - ${config.adresse}`;
+      } else if (popupLocation && config.nom) {
+        popupLocation.textContent = config.nom;
       }
       
       // Mettre à jour la date (formatée en français)
@@ -456,13 +465,7 @@
       } else {
         // Texte par défaut si aucune info de collecte n'est configurée
         collectionText.textContent = "Informations de collecte disponibles sur place";
-      }
-      
-      // Mettre à jour le titre de la page
-      if (config.nom) {
-        document.title = `Commande - ${config.nom}`;
-      }
-    });
+      }    });
   </script>
   
   <div class="help-section">
