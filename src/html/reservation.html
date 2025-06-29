@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Votre commande</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <link rel="stylesheet" href="reservation.css">
+  <link rel="stylesheet" href="../css/reservation.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#f9f6f3">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -13,7 +13,7 @@
 </head>
 <body>
   <div class="header-bar">
-    <a class="back-btn" href="index.html" aria-label="Retour">
+    <a class="back-btn" href="../../index.html" aria-label="Retour">
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
         <path d="M18 22L10 14L18 6" stroke="#222" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
@@ -23,7 +23,7 @@
   <div class="main-bg">
     <div class="container">
       <div class="shop-card">
-        <img id="shopLogo" src="logo/starbucks-logo.png" alt="Logo" class="shop-logo" style="width:54px;height:54px;">
+        <img id="shopLogo" src="../../assets/logo/starbucks-logo.png" alt="Logo" class="shop-logo" style="width:54px;height:54px;">
         <div id="shopName" class="shop-name">Nom de l'entreprise</div>
         <div id="shopAddress" class="shop-address">Adresse de l'entreprise</div>
         <a href="#" class="find-shop">Trouver le commerce
@@ -66,7 +66,7 @@
           <span id="collectionInfoText">Informations de collecte</span>
         </div>        <hr class="separator-dots">
         <button class="main-action-btn" id="open-popup-btn">Cliquer pour récupérer</button>
-        <div class="reminder">Recevoir un rappel <img src="3602145.png" width="20" height="20" style="vertical-align:middle;"></div>
+        <div class="reminder">Recevoir un rappel <img src="../../assets/3602145.png" width="20" height="20" style="vertical-align:middle;"></div>
       </div>
     </div>
   </div>
@@ -396,7 +396,8 @@
     }  </script>
   
   <!-- Script de chargement dynamique des données -->
-  <script src="config.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/test-suite.js"></script>
   <script>
     // Fonction pour formater la date en français
     function formatDateFrench(dateString) {
