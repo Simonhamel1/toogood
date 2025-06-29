@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Votre commande</title>
+  <title id="pageTitle">Votre commande</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <link rel="stylesheet" href="../css/reservation.css">
   <link rel="manifest" href="manifest.json">
@@ -10,6 +10,71 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="format-detection" content="telephone=no">
+  <style>
+    /* Styles pour l'indicateur de chargement */
+    .loading-indicator {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #00796b;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 16px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .loading-text {
+      color: #666;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    
+    /* Animation d'apparition du contenu */
+    .content-fade-in {
+      animation: fadeInContent 0.5s ease-in-out;
+    }
+    
+    @keyframes fadeInContent {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Styles pour les états d'erreur */
+    .error-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: #666;
+    }
+    
+    .error-icon {
+      font-size: 48px;
+      color: #ff6b6b;
+      margin-bottom: 16px;
+    }
+    
+    .error-message {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+    
+    .error-details {
+      font-size: 14px;
+      color: #999;
+    }
+  </style>
 </head>
 <body>
   <div class="header-bar">
@@ -21,11 +86,17 @@
     <span class="header-title">Votre commande</span>
   </div>
   <div class="main-bg">
-    <div class="container">
+    <!-- Indicateur de chargement -->
+    <div id="loadingIndicator" class="loading-indicator">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Chargement des informations...</div>
+    </div>
+    
+    <div class="container" id="mainContent" style="display: none;">
       <div class="shop-card">
-        <img id="shopLogo" src="../../assets/logo/starbucks-logo.png" alt="Logo" class="shop-logo" style="width:54px;height:54px;">
-        <div id="shopName" class="shop-name">Nom de l'entreprise</div>
-        <div id="shopAddress" class="shop-address">Adresse de l'entreprise</div>
+        <img id="shopLogo" src="" alt="" class="shop-logo" style="width:54px;height:54px;">
+        <div id="shopName" class="shop-name"></div>
+        <div id="shopAddress" class="shop-address"></div>
         <a href="#" class="find-shop">Trouver le commerce
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle; margin-left:2px;">
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#00796b"/>
@@ -40,11 +111,11 @@
         <div class="reservation-details">
           <div>
             <div class="details-label">DATE</div>
-            <div id="eventDate" class="details-value">Date</div>
+            <div id="eventDate" class="details-value"></div>
           </div>
           <div>
             <div class="details-label">HEURE DE COLLECTE</div>
-            <div id="eventTime" class="details-value">Heure</div>
+            <div id="eventTime" class="details-value"></div>
           </div>
         </div>
         <div class="details-row">
@@ -54,7 +125,7 @@
           </div>
           <div>
             <div class="details-label">TOTAL</div>
-            <div id="eventPrice" class="details-value">Prix €</div>
+            <div id="eventPrice" class="details-value"></div>
           </div>
         </div>
         <div class="emballage">
@@ -63,7 +134,7 @@
         </div>
         <div id="collectionInfoSection" class="emballage" style="margin-top:14px;">
           <b>INFOS DE COLLECTE</b><br>
-          <span id="collectionInfoText">Informations de collecte</span>
+          <span id="collectionInfoText"></span>
         </div>        <hr class="separator-dots">
         <button class="main-action-btn" id="open-popup-btn">Cliquer pour récupérer</button>
         <div class="reminder">Recevoir un rappel <img src="../../assets/3602145.png" width="20" height="20" style="vertical-align:middle;"></div>
@@ -81,7 +152,7 @@
       <div class="popup-content">
         <div class="popup-quantity-circle">1x</div>
           <div class="popup-item-name">Panier Surprise</div>
-        <div class="popup-item-location" id="popupItemLocation">Starbucks - Cergy 3 fontaines</div>
+        <div class="popup-item-location" id="popupItemLocation"></div>
         
         <div class="popup-code-container">5E0QY7N4M07H0</div>
         
@@ -145,7 +216,7 @@
       // Remettre les instructions originales
       const instructions = document.querySelector('.popup-instructions');
       if (instructions) {
-        instructions.innerHTML = 'Validez ci-dessous et montrez l\'écran au<br>commerçant. Assurez-vous de ne confirmer qu\'une<br>fois que vous êtes chez le commerçant pour récupérer<br>votre panier.';
+        instructions.innerHTML = 'Validez ci-dessous et montrez l\'écran au<br>commerçant. Assurez-vous de ne confirmer qu\'une<br>fois que vous êtes chez le commerçant pour<br>récupérer votre panier.';
         instructions.style.display = 'block';
       }
       
@@ -199,7 +270,7 @@
         // Remettre les instructions originales
         const instructions = document.querySelector('.popup-instructions');
         if (instructions) {
-          instructions.innerHTML = 'Validez ci-dessous et montrez l\'écran au<br>commerçant. Assurez-vous de ne confirmer qu\'une<br>fois que vous êtes chez le commerçant pour récupérer<br>votre panier.';
+          instructions.innerHTML = 'Validez ci-dessous et montrez l\'écran au<br>commerçant. Assurez-vous de ne confirmer qu\'une<br>fois que vous êtes chez le commerçant pour<br>récupérer votre panier.';
           instructions.style.display = 'block';
         }
       }, 300);    };
@@ -298,7 +369,7 @@
               </svg>
               </div>
               <h4 class="success-title">Collecte confirmée</h4>
-              <p class="success-text">Montrer l'ecran au commerçant pour<br>récuper le panier !</p>
+              <p class="success-text">Montrer l'écran au commerçant pour<br>récupérer le panier !</p>
             `;
 
             // Styles CSS pour le message
@@ -412,58 +483,191 @@
 
     // Charger et appliquer la configuration
     document.addEventListener('DOMContentLoaded', function() {
-      const config = window.siteConfig.getAll();
-      
-      // Mettre à jour le logo
-      if (config.logo) {
-        document.getElementById('shopLogo').src = config.logo;
-        document.getElementById('shopLogo').alt = config.nom || 'Logo';
-      }
-        // Mettre à jour le nom de l'entreprise
-      if (config.nom) {
-        document.getElementById('shopName').textContent = config.nom;
+      // Fonction pour afficher le contenu principal
+      function showMainContent() {
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const mainContent = document.getElementById('mainContent');
         
-        // Mettre à jour aussi le titre de la page
-        document.title = `Commande - ${config.nom}`;
+        if (loadingIndicator) {
+          loadingIndicator.style.display = 'none';
+        }
+        if (mainContent) {
+          mainContent.style.display = 'block';
+          mainContent.classList.add('content-fade-in');
+        }
       }
       
-      // Mettre à jour l'adresse
-      if (config.adresse) {
-        document.getElementById('shopAddress').textContent = config.adresse;
-      }
-        // Mettre à jour les informations du popup (nom seulement)
-      const popupLocation = document.getElementById('popupItemLocation');
-      if (popupLocation && config.nom) {
-        popupLocation.textContent = config.nom;
-      }
-      
-      // Mettre à jour la date (formatée en français)
-      if (config.date) {
-        document.getElementById('eventDate').textContent = formatDateFrench(config.date);
-      }
-      
-      // Mettre à jour l'heure
-      if (config.heure) {
-        document.getElementById('eventTime').textContent = config.heure;
+      // Fonction pour afficher une erreur
+      function showError(message) {
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        if (loadingIndicator) {
+          loadingIndicator.innerHTML = `
+            <div class="error-state">
+              <div class="error-icon">⚠️</div>
+              <div class="error-message">Erreur de chargement</div>
+              <div class="error-details">${message}</div>
+            </div>
+          `;
+        }
       }
       
-      // Mettre à jour le prix
-      if (config.prix) {
-        document.getElementById('eventPrice').textContent = config.prix + ' €';
+      // Vérifier que la configuration est disponible avec timeout
+      let configCheckAttempts = 0;
+      const maxAttempts = 10;
+      
+      function checkConfiguration() {
+        configCheckAttempts++;
+        
+        if (window.siteConfig) {
+          try {
+            const config = window.siteConfig.getAll();
+            console.log('Configuration chargée:', config);
+            loadConfigurationData(config);
+            showMainContent();
+          } catch (error) {
+            console.error('Erreur lors du chargement de la configuration:', error);
+            showError('Impossible de charger la configuration');
+          }
+        } else if (configCheckAttempts < maxAttempts) {
+          // Réessayer après 100ms
+          setTimeout(checkConfiguration, 100);
+        } else {
+          console.error('Configuration non disponible après plusieurs tentatives');
+          loadDefaultValues();
+          showMainContent();
+        }
       }
+      
+      // Démarrer la vérification
+      checkConfiguration();
+      
+      // Fonction principale de chargement des données
+      function loadConfigurationData(config) {
+        // Mettre à jour le titre de la page
+        const pageTitle = document.getElementById('pageTitle');
+        if (pageTitle && config.nom) {
+          pageTitle.textContent = `Commande - ${config.nom}`;
+        }
+        
+        // Mettre à jour le logo avec gestion d'erreur
+        const logoElement = document.getElementById('shopLogo');
+        if (logoElement && config.logo) {
+          // Construire le chemin correct du logo
+          const logoPath = config.logo.startsWith('../../') ? config.logo : `../../${config.logo}`;
+          logoElement.src = logoPath;
+          logoElement.alt = config.nom ? `Logo ${config.nom}` : 'Logo du commerce';
+          
+          // Gestion d'erreur de chargement d'image
+          logoElement.onerror = function() {
+            console.warn('Erreur de chargement du logo:', logoPath);
+            this.style.display = 'none';
+          };
+          
+          logoElement.onload = function() {
+            console.log('Logo chargé avec succès:', logoPath);
+            this.style.display = 'block';
+          };
+        }
+          
+        // Mettre à jour le nom de l'entreprise
+        const shopNameElement = document.getElementById('shopName');
+        if (shopNameElement) {
+          shopNameElement.textContent = config.nom || 'Commerce non configuré';
+        }
+        
+        // Mettre à jour l'adresse
+        const shopAddressElement = document.getElementById('shopAddress');
+        if (shopAddressElement) {
+          shopAddressElement.textContent = config.adresse || 'Adresse non configurée';
+        }
+          
+        // Mettre à jour les informations du popup
+        const popupLocation = document.getElementById('popupItemLocation');
+        if (popupLocation) {
+          popupLocation.textContent = config.nom || 'Commerce';
+        }
+        
+        // Mettre à jour la date (formatée en français)
+        const eventDateElement = document.getElementById('eventDate');
+        if (eventDateElement) {
+          if (config.date) {
+            eventDateElement.textContent = formatDateFrench(config.date);
+          } else {
+            eventDateElement.textContent = 'Date non configurée';
+          }
+        }
+        
+        // Mettre à jour l'heure
+        const eventTimeElement = document.getElementById('eventTime');
+        if (eventTimeElement) {
+          eventTimeElement.textContent = config.heure || 'Heure non configurée';
+        }
+        
+        // Mettre à jour le prix
+        const eventPriceElement = document.getElementById('eventPrice');
+        if (eventPriceElement) {
+          if (config.prix) {
+            eventPriceElement.textContent = config.prix + ' €';
+          } else {
+            eventPriceElement.textContent = 'Prix non configuré';
+          }
+        }
+          
         // Gérer l'affichage des informations de collecte
+        const collectionSection = document.getElementById('collectionInfoSection');
+        const collectionText = document.getElementById('collectionInfoText');
+        
+        if (collectionSection && collectionText) {
+          if (config.hasCollectionInfo && config.collectionInfo) {
+            collectionSection.style.display = 'block';
+            collectionText.textContent = config.collectionInfo;
+          } else {
+            // Masquer la section si aucune info de collecte
+            collectionSection.style.display = 'none';
+          }
+        }
+      }
+      
+      // Écouter les changements de configuration
+      window.addEventListener('configUpdated', function(event) {
+        console.log('Configuration mise à jour, rechargement des données...');
+        location.reload(); // Recharger la page pour appliquer les changements
+      });
+    });
+
+    // Fonction de fallback pour charger des valeurs par défaut
+    function loadDefaultValues() {
+      console.log('Chargement des valeurs par défaut...');
+      
+      const elements = {
+        shopName: 'Commerce TooGood',
+        shopAddress: 'Adresse non configurée',
+        eventDate: 'Date non configurée',
+        eventTime: 'Heure non configurée',
+        eventPrice: 'Prix non configuré',
+        popupItemLocation: 'Commerce TooGood',
+        collectionInfoText: 'Informations non disponibles'
+      };
+      
+      Object.keys(elements).forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.textContent = elements[id];
+        }
+      });
+      
+      // Masquer le logo si non configuré
+      const logoElement = document.getElementById('shopLogo');
+      if (logoElement) {
+        logoElement.style.display = 'none';
+      }
+      
+      // Masquer les infos de collecte
       const collectionSection = document.getElementById('collectionInfoSection');
-      const collectionText = document.getElementById('collectionInfoText');
-      
-      // Toujours afficher la section (comme dans l'original)
-      collectionSection.style.display = 'block';
-      
-      if (config.hasCollectionInfo && config.collectionInfo) {
-        collectionText.textContent = config.collectionInfo;
-      } else {
-        // Texte par défaut si aucune info de collecte n'est configurée
-        collectionText.textContent = "Informations de collecte disponibles sur place";
-      }    });
+      if (collectionSection) {
+        collectionSection.style.display = 'none';
+      }
+    }
   </script>
   
   <div class="help-section">
