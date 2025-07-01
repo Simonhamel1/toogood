@@ -10,7 +10,7 @@ Application anti-gaspillage alimentaire qui connecte les consommateurs avec des 
 
 Sur mobile/desktop : Cliquez sur l'icône d'installation dans votre navigateur pour ajouter l'app à votre écran d'accueil. 
 
-Sinon, vous pouvez consulter le tutoriel d'installation [ici](https://github.com/Simonhamel1/toogood/blob/master/assets/whatsapp%20image/WhatsApp%Vidéo%2025-07-01%à%08.50.20_425e871a.mp4).
+Sinon, vous pouvez consulter le tutoriel d'installation [ici](https://github.com/Simonhamel1/toogood/blob/master/assets/whatsapp%20image/WhatsApp%20Vid%C3%A9o%202025-07-01%20%C3%A0%2008.50.20_425e871a.mp4).
 
 ## ✨ Fonctionnalités
 
