@@ -13,21 +13,22 @@ const CACHE_DYNAMIC_NAME = 'toogood-dynamic-v1.0.0';
 
 // Fichiers à mettre en cache lors de l'installation
 const STATIC_FILES = [
-    '/',
-    '/index.html',
-    '/src/html/reservation.html',
-    '/src/css/reservation.css',
-    '/src/js/config.js',
-    '/manifest.json',
-    '/assets/logo/starbucks-logo.png',
-    '/assets/logo/les-halles-du-lavandiers.jpeg'
+    './',
+    './index.html',
+    './src/html/reservation.html',
+    './src/css/reservation.css',
+    './src/js/config.js',
+    './manifest.json',
+    './assets/logo/starbucks-logo.png',
+    './assets/logo/les-halles-du-lavandiers.jpeg',
+    './assets/tgtg.webp'
 ];
 
 // Fichiers critiques qui doivent toujours être disponibles
 const CRITICAL_FILES = [
-    '/index.html',
-    '/src/html/reservation.html',
-    '/src/js/config.js'
+    './index.html',
+    './src/html/reservation.html',
+    './src/js/config.js'
 ];
 
 /**
@@ -126,7 +127,7 @@ async function handleHTMLRequest(request) {
     } catch (error) {
         console.log('[SW] Réseau indisponible, utilisation du cache pour:', request.url);
         const cachedResponse = await caches.match(request);
-        return cachedResponse || caches.match('/index.html');
+        return cachedResponse || caches.match('./index.html');
     }
 }
 

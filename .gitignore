@@ -1,0 +1,13 @@
+# Fichiers temporaires
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Environnements de développement
+.vscode/
+.idea/
+
+# Cache
+.cache/
+node_modules/
