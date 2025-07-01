@@ -4,7 +4,7 @@ Application anti-gaspillage alimentaire qui connecte les consommateurs avec des 
 
 ## 🌐 Accès au site
 
-**👉 [Ouvrir TooGood](https://votre-username.github.io/toogood)**
+**👉 [Ouvrir TooGood](https://simonhamel1.github.io/toogood/)**
 
 ## 📱 Installation
 

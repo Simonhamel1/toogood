@@ -14,49 +14,49 @@
   "categories": ["food", "sustainability", "business"],
   "icons": [
     {
-      "src": "assets/whatsapp image/tgtg.webp",
+      "src": "assets/tgtg.webp",
       "sizes": "72x72",
       "type": "image/webp",
       "purpose": "any"
     },
     {
-      "src": "assets/whatsapp image/tgtg.webp",
+      "src": "assets/tgtg.webp",
       "sizes": "96x96",
       "type": "image/webp",
       "purpose": "any"
     },
     {
-      "src": "assets/whatsapp image/tgtg.webp",
+      "src": "assets/tgtg.webp",
       "sizes": "128x128",
       "type": "image/webp",
       "purpose": "any"
     },
     {
-      "src": "assets/whatsapp image/tgtg.webp",
+      "src": "assets/tgtg.webp",
       "sizes": "144x144",
       "type": "image/webp",
       "purpose": "any"
     },
     {
-      "src": "assets/whatsapp image/tgtg.webp",
+      "src": "assets/tgtg.webp",
       "sizes": "152x152",
       "type": "image/webp",
       "purpose": "any"
     },
     {
-      "src": "assets/whatsapp image/tgtg.webp",
+      "src": "assets/tgtg.webp",
       "sizes": "192x192",
       "type": "image/webp",
       "purpose": "any maskable"
     },
     {
-      "src": "assets/whatsapp image/tgtg.webp",
+      "src": "assets/tgtg.webp",
       "sizes": "384x384",
       "type": "image/webp",
       "purpose": "any"
     },
     {
-      "src": "assets/whatsapp image/tgtg.webp",
+      "src": "assets/tgtg.webp",
       "sizes": "512x512",
       "type": "image/webp",
       "purpose": "any maskable"
@@ -70,7 +70,7 @@
       "url": "/index.html",
       "icons": [
         {
-          "src": "assets/whatsapp image/tgtg.webp",
+          "src": "assets/tgtg.webp",
           "sizes": "192x192"
         }
       ]
@@ -82,7 +82,7 @@
       "url": "/src/html/reservation.html",
       "icons": [
         {
-          "src": "assets/whatsapp image/tgtg.webp",
+          "src": "assets/tgtg.webp",
           "sizes": "192x192"
         }
       ]
