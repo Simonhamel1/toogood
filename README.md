@@ -1,25 +1,27 @@
 # TooGood 🥘
 
-Application anti-gaspillage alimentaire qui connecte les consommateurs avec des commerces proposant des produits à prix réduits. Permet également de simuler des commandes pour tester l'interface.
+Food anti-waste application that connects consumers with businesses offering discounted products. Also allows simulating orders to test the interface.
 
-## 🌐 Accès au site
+## 🌐 Website Access
 
-**👉 [Ouvrir TooGood](https://simonhamel1.github.io/toogood/)**
+**👉 [Open TooGood](https://simonhamel1.github.io/toogood/)**
 
 ## 📱 Installation
 
-Sur mobile/desktop : Cliquez sur l'icône d'installation dans votre navigateur pour ajouter l'app à votre écran d'accueil. 
+On mobile/desktop: Click the installation icon in your browser to add the app to your home screen.
 
-Sinon, vous pouvez consulter le tutoriel d'installation [ici](https://github.com/Simonhamel1/toogood/blob/master/assets/whatsapp%20image/WhatsApp%20Vid%C3%A9o%202025-07-01%20%C3%A0%2008.50.20_425e871a.mp4).
+Alternatively, you can view the installation tutorial [here](https://github.com/Simonhamel1/toogood/blob/master/assets/whatsapp%20image/WhatsApp%Vidéo%2025-07-01%à%08.50.20_425e871a.mp4).
 
-## ✨ Fonctionnalités
+## ✨ Features
 
-- Découverte de produits en promo
-- Système de réservation simple
-- Interface responsive
-- Fonctionne hors-ligne (PWA)
-- Simulation de commandes à des fins de test
+- Discover discounted products
+- Simple reservation system
+- Responsive interface
+- Works offline (PWA)
+- Order simulation for testing purposes
 
 ---
 
-*Lutte contre le gaspillage alimentaire* 🌱
+*Fighting food waste* 🌱
+
+Note: The application interface is currently available in French only.
