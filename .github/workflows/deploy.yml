@@ -1,0 +1,30 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Validate files
+      run: |
+        echo "Vérification de la structure du projet..."
+        ls -la
+        if [ ! -f "index.html" ]; then echo "index.html manquant"; exit 1; fi
+        if [ ! -f "manifest.json" ]; then echo "manifest.json manquant"; exit 1; fi
+        if [ ! -f "src/js/sw.js" ]; then echo "service worker manquant"; exit 1; fi
+        echo "Structure du projet valide"
+    
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: .
