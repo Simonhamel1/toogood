@@ -13,27 +13,22 @@ const CACHE_DYNAMIC_NAME = 'toogood-dynamic-v1.0.0';
 
 // Fichiers à mettre en cache lors de l'installation
 const STATIC_FILES = [
-    './',
-    './index.html',
-    './src/html/reservation.html',
-    './src/css/reservation.css',
-    './src/js/config.js',
-    './manifest.json',
-    './assets/logo/starbucks-logo.png',
-    './assets/logo/les-halles-du-lavandiers.jpeg',
-    './assets/tgtg.webp'
+    '/',
+    '/index.html',
+    '/src/html/reservation.html',
+    '/src/css/reservation.css',
+    '/src/js/config.js',
+    '/manifest.json',
+    '/assets/logo/starbucks-logo.png',
+    '/assets/logo/les-halles-du-lavandiers.jpeg'
 ];
 
 // Fichiers critiques qui doivent toujours être disponibles
 const CRITICAL_FILES = [
-    './index.html',
-    './src/html/reservation.html',
-    './src/js/config.js'
+    '/index.html',
+    '/src/html/reservation.html',
+    '/src/js/config.js'
 ];
-
-// Diagnostics pour le débogage
-console.log('[SW] Service Worker TooGood - Version:', CACHE_NAME);
-console.log('[SW] Fichiers à mettre en cache:', STATIC_FILES);
 
 /**
  * Installation du Service Worker
@@ -46,15 +41,7 @@ self.addEventListener('install', event => {
         caches.open(CACHE_STATIC_NAME)
             .then(cache => {
                 console.log('[SW] Mise en cache des fichiers statiques');
-                // Tenter de mettre en cache chaque fichier individuellement
-                return Promise.allSettled(
-                    STATIC_FILES.map(file => 
-                        cache.add(file).catch(error => {
-                            console.warn(`[SW] Impossible de mettre en cache ${file}:`, error);
-                            return Promise.resolve(); // Continue même si un fichier échoue
-                        })
-                    )
-                );
+                return cache.addAll(STATIC_FILES);
             })
             .then(() => {
                 console.log('[SW] Installation terminée');
@@ -139,7 +126,7 @@ async function handleHTMLRequest(request) {
     } catch (error) {
         console.log('[SW] Réseau indisponible, utilisation du cache pour:', request.url);
         const cachedResponse = await caches.match(request);
-        return cachedResponse || caches.match('./index.html');
+        return cachedResponse || caches.match('/index.html');
     }
 }
 
@@ -234,4 +221,4 @@ self.addEventListener('error', event => {
     console.error('[SW] Erreur globale:', event.error);
 });
 
-console.log('[SW] Service Worker TooGood initialisé');
+console.log('[SW] Service Worker TooGood initialisé'); 
