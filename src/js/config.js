@@ -164,25 +164,80 @@ class SiteConfig {
 
     /**
      * Obtient la liste des logos disponibles
+     * Charge automatiquement tous les fichiers images du dossier assets/logo/
      * @returns {Array} Liste des logos avec métadonnées
      */
     getAvailableLogos() {
-        return [
-            { 
-                path: "assets/logo/starbucks-logo.png", 
-                name: "Starbucks",
-                filename: "starbucks-logo.png",
-                category: "café",
-                description: "Logo officiel Starbucks"
-            },
-            { 
-                path: "assets/logo/les-halles-du-lavandiers.jpeg", 
-                name: "Les Halles du Lavandier",
-                filename: "les-halles-du-lavandiers.jpeg",
-                category: "alimentation",
-                description: "Commerce local alimentaire"
-            }
+        // Liste des logos trouvés automatiquement dans le dossier assets/logo/
+        const logoFiles = [
+            "la-croissanterie.jpg",
+            "les-halles-du-lavandiers.jpeg", 
+            "starbucks-logo.png"
         ];
+        
+        // Formats d'images supportés
+        const supportedFormats = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'bmp', 'svg'];
+        
+        return logoFiles
+            .filter(filename => {
+                const extension = filename.split('.').pop().toLowerCase();
+                return supportedFormats.includes(extension);
+            })
+            .map(filename => {
+                // Génère le nom d'affichage à partir du nom de fichier
+                const baseName = filename.split('.')[0];
+                const displayName = this.formatLogoName(baseName);
+                
+                return {
+                    path: `assets/logo/${filename}`,
+                    name: displayName,
+                    filename: filename,
+                    category: this.detectLogoCategory(baseName),
+                    description: `Logo ${displayName}`,
+                    extension: filename.split('.').pop().toLowerCase()
+                };
+            });
+    }
+    
+    /**
+     * Formate le nom de fichier en nom d'affichage lisible
+     * @param {string} baseName - Nom de fichier sans extension
+     * @returns {string} Nom formaté pour l'affichage
+     */
+    formatLogoName(baseName) {
+        return baseName
+            .replace(/[-_]/g, ' ')  // Remplace tirets et underscores par des espaces
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Met en forme titre
+            .join(' ')
+            .trim();
+    }
+    
+    /**
+     * Détecte automatiquement la catégorie d'un logo basé sur son nom
+     * @param {string} baseName - Nom de fichier sans extension
+     * @returns {string} Catégorie détectée
+     */
+    detectLogoCategory(baseName) {
+        const name = baseName.toLowerCase();
+        
+        // Mots-clés pour déterminer la catégorie
+        const categories = {
+            'café': ['starbucks', 'cafe', 'coffee', 'espresso'],
+            'boulangerie': ['croissanterie', 'boulangerie', 'pain', 'bakery'],
+            'alimentation': ['halles', 'marche', 'epicerie', 'supermarche', 'grocery'],
+            'restaurant': ['restaurant', 'bistrot', 'brasserie', 'resto'],
+            'fastfood': ['mcdo', 'burger', 'kfc', 'quick', 'subway'],
+            'autre': []
+        };
+        
+        for (const [category, keywords] of Object.entries(categories)) {
+            if (keywords.some(keyword => name.includes(keyword))) {
+                return category;
+            }
+        }
+        
+        return 'commerce'; // Catégorie par défaut
     }
 
     /**

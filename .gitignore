@@ -11,3 +11,6 @@ Thumbs.db
 # Cache
 .cache/
 node_modules/
+
+ne_pas_supprimer.py
+ne_pas_supprimer1.py
