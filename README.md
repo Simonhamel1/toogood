@@ -10,7 +10,7 @@ Food anti-waste application that connects consumers with businesses offering dis
 
 On mobile/desktop: Click the installation icon in your browser to add the app to your home screen.
 
-Alternatively, you can view the installation tutorial [here](https://github.com/Simonhamel1/toogood/blob/master/assets/whatsapp%20image/WhatsApp%Vidéo%2025-07-01%à%08.50.20_425e871a.mp4).
+Alternatively, you can view the installation tutorial [here](https://github.com/Simonhamel1/toogood/blob/master/tuto_installation.mp4).
 
 ## ✨ Features
 
