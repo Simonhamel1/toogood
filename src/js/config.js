@@ -172,7 +172,8 @@ class SiteConfig {
         const logoFiles = [
             "la-croissanterie.jpg",
             "les-halles-du-lavandiers.jpeg", 
-            "starbucks-logo.png"
+            "starbucks-logo.png",
+            "monoprix.png"
         ];
         
         // Formats d'images supportés
