@@ -173,7 +173,8 @@ class SiteConfig {
             "la-croissanterie.jpg",
             "les-halles-du-lavandiers.jpeg", 
             "starbucks-logo.png",
-            "monoprix.png"
+            "monoprix.png",
+            "au-pain-du-village.png"
         ];
         
         // Formats d'images supportés
