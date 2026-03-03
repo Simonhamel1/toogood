@@ -174,7 +174,8 @@ class SiteConfig {
             "les-halles-du-lavandiers.jpeg", 
             "starbucks-logo.png",
             "monoprix.png",
-            "au-pain-du-village.png"
+            "au-pain-du-village.png",
+            "CARREFOUR-CITY.png",
         ];
         
         // Formats d'images supportés
