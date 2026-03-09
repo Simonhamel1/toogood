@@ -176,6 +176,7 @@ class SiteConfig {
             "monoprix.png",
             "au-pain-du-village.png",
             "CARREFOUR-CITY.png",
+            "domino's-logo.jpg"
         ];
         
         // Formats d'images supportés
