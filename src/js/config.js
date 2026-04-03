@@ -176,6 +176,10 @@ class SiteConfig {
             "monoprix.png",
             "au-pain-du-village.png",
             "CARREFOUR-CITY.png",
+            "brioche_doree.png",
+            "it.jpg",
+            "relais.jpg",
+            "colombus.jpg",
         ];
         
         // Formats d'images supportés
