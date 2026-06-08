@@ -181,6 +181,7 @@ class SiteConfig {
             "it.jpg",
             "relais.jpg",
             "colombus.jpg",
+            "logo_total.jpg",
         ];
         
         // Formats d'images supportés
