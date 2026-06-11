@@ -21,6 +21,7 @@ class SiteConfig {
             heure: "16:00 - 18:30",
             prix: "4.99",
             logo: "assets/logo/starbucks-logo.png",
+            nomPanier: "Panier Surprise",
             hasCollectionInfo: false,
             collectionInfo: "",
             // Métadonnées

@@ -182,6 +182,7 @@
     // Définir les variables en premier
     const sliderBtn = document.getElementById('slider-btn');
     const slider = document.getElementById('popup-slider');
+    let currentItemName = 'Panier Surprise';
     
     // Popup logic
     const popupOverlay = document.getElementById('popup-overlay');
@@ -208,7 +209,7 @@
       if (quantityCircle && itemName) {
         quantityCircle.innerHTML = '1x';
         quantityCircle.style.background = '#00796b';
-        itemName.textContent = 'Panier Surprise';
+        itemName.textContent = currentItemName;
       }
       
       // Supprimer tous les éléments ajoutés dynamiquement (collecte-confirmee, etc.)
@@ -255,7 +256,7 @@
         if (quantityCircle && itemName) {
           quantityCircle.innerHTML = '1x';
           quantityCircle.style.background = '#00796b';
-          itemName.textContent = 'Panier Surprise';
+          itemName.textContent = currentItemName;
         }
           // Supprimer tous les éléments ajoutés dynamiquement de manière complète
         const collecteConfirmee = document.querySelector('.collecte-confirmee');
@@ -557,7 +558,9 @@
         const logoElement = document.getElementById('shopLogo');
         if (logoElement && config.logo) {
           // Construire le chemin correct du logo
-          const logoPath = config.logo.startsWith('../../') ? config.logo : `../../${config.logo}`;
+          const logoPath = /^(https?:|data:|blob:|\/)/.test(config.logo) || config.logo.startsWith('../../') || config.logo.startsWith('../')
+            ? config.logo
+            : `../../${config.logo}`;
           logoElement.src = logoPath;
           logoElement.alt = config.nom ? `Logo ${config.nom}` : 'Logo du commerce';
           
@@ -589,6 +592,21 @@
         const popupLocation = document.getElementById('popupItemLocation');
         if (popupLocation) {
           popupLocation.textContent = config.nom || 'Commerce';
+        }
+
+        // Mettre à jour le nom du panier / produit
+        currentItemName = config.nomPanier || 'Panier Surprise';
+        const itemLabelElement = document.querySelector('.details-row .details-label');
+        const itemValueElement = document.querySelector('.details-row .details-value');
+        const popupItemNameElement = document.querySelector('.popup-item-name');
+        if (itemLabelElement) {
+          itemLabelElement.textContent = currentItemName.toUpperCase();
+        }
+        if (itemValueElement) {
+          itemValueElement.textContent = `1x ${currentItemName}`;
+        }
+        if (popupItemNameElement) {
+          popupItemNameElement.textContent = currentItemName;
         }
         
         // Mettre à jour la date (formatée en français)
@@ -642,6 +660,7 @@
     // Fonction de fallback pour charger des valeurs par défaut
     function loadDefaultValues() {
       console.log('Chargement des valeurs par défaut...');
+      currentItemName = 'Panier Surprise';
       
       const elements = {
         shopName: 'Commerce TooGood',
@@ -664,6 +683,19 @@
       const logoElement = document.getElementById('shopLogo');
       if (logoElement) {
         logoElement.style.display = 'none';
+      }
+
+      const itemLabelElement = document.querySelector('.details-row .details-label');
+      const itemValueElement = document.querySelector('.details-row .details-value');
+      const popupItemNameElement = document.querySelector('.popup-item-name');
+      if (itemLabelElement) {
+        itemLabelElement.textContent = currentItemName.toUpperCase();
+      }
+      if (itemValueElement) {
+        itemValueElement.textContent = `1x ${currentItemName}`;
+      }
+      if (popupItemNameElement) {
+        popupItemNameElement.textContent = currentItemName;
       }
       
       // Masquer les infos de collecte
