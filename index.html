@@ -758,9 +758,14 @@
           <label>Date :
             <input type="date" name="date" id="input-date" required>
           </label>
-          <label>Heure de collecte :
-            <input type="text" name="heure" id="input-heure" placeholder="16:00 - 18:30" required>
-          </label>
+          <label>Heure de collecte :</label>
+          <div style="display: flex; align-items: center; gap: 12px; margin-top: 8px; margin-bottom: 18px;">
+            <input type="time" name="heure_debut" id="input-heure-debut" required
+              style="flex: 1; padding: 16px 18px; border: 2px solid rgba(0,0,0,0.08); border-radius: 16px; font-size: 16px; background: rgba(255,255,255,0.9); color: #2c3e50; font-weight: 500; -webkit-appearance: none; appearance: none; transition: all 0.3s cubic-bezier(0.25,0.46,0.45,0.94);">
+            <span style="font-weight: 700; color: #7f8c8d; font-size: 18px;">→</span>
+            <input type="time" name="heure_fin" id="input-heure-fin" required
+              style="flex: 1; padding: 16px 18px; border: 2px solid rgba(0,0,0,0.08); border-radius: 16px; font-size: 16px; background: rgba(255,255,255,0.9); color: #2c3e50; font-weight: 500; -webkit-appearance: none; appearance: none; transition: all 0.3s cubic-bezier(0.25,0.46,0.45,0.94);">
+          </div>
           <label>Prix :
             <input type="number" name="prix" id="input-prix" step="0.01" required> €
           </label>
@@ -903,7 +908,9 @@
       document.getElementById('input-nom').value = config.nom || '';
       document.getElementById('input-adresse').value = config.adresse || '';
       document.getElementById('input-date').value = config.date || '';
-      document.getElementById('input-heure').value = config.heure || '';
+      const heureParts = (config.heure || '').split('-').map(s => s.trim());
+      document.getElementById('input-heure-debut').value = heureParts[0] || '';
+      document.getElementById('input-heure-fin').value = heureParts[1] || '';
       document.getElementById('input-prix').value = config.prix || '';
       document.getElementById('input-nom-panier').value = config.nomPanier || 'Panier Surprise';
       document.getElementById('input-logo').value = config.logo || '';
@@ -1031,7 +1038,7 @@
         nom: formData.get('nom'),
         adresse: formData.get('adresse'),
         date: formData.get('date'),
-        heure: formData.get('heure'),
+        heure: [formData.get('heure_debut'), formData.get('heure_fin')].filter(Boolean).join(' - '),
         prix: formData.get('prix'),
         nomPanier: (formData.get('nomPanier') || 'Panier Surprise').trim(),
         logo: uploadedLogo || customLogo || selectedLogo,

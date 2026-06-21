@@ -251,6 +251,12 @@ body {
   justify-content: flex-start;
   padding-top: 56px;
 }
+
+@media (max-width: 480px) {
+  .main-bg {
+    padding-top: 90px;
+  }
+}
 .edit-form {
   background: #fff;
   border-radius: 16px;
